@@ -5,6 +5,7 @@ import Task from './components/Task';
 import { useState } from 'react';
 import Button from './components/Button';
 import AddTaskModal from './components/AddTaskModal';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -44,6 +45,7 @@ export default function App() {
       <Button label={"Add"} onPress={() => setIsModalVisible(true)}></Button>
      <StatusBar style="auto" />
      <AddTaskModal isVisible={isModalVisible} onClose={onClose} onSubmit={addTask}/>
+     <Toast />
      </View>
     </View>
     </SafeAreaView>

@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Switch } from "react-native";
-
+import { View, Text, StyleSheet, Switch, TouchableOpacity} from "react-native";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 export default function({todo}){
     console.log("In task", todo);
     const [isEnabled, setIsEnabled] = useState(todo.completed);
-    const toggleSwitch = () => setIsEnabled(isEnabled => !isEnabled);
+    const toggleSwitch = () => {
+        setIsEnabled(isEnabled => !isEnabled);
+        todo.completed = !isEnabled;
+    };
     return (
         <View style={styles.taskContainer}>
            <View style={styles.titleContainer}>
@@ -21,6 +24,7 @@ export default function({todo}){
             onValueChange={toggleSwitch}
             value={isEnabled}
             ></Switch>
+            <TouchableOpacity><MaterialCommunityIcons name="delete" size={48} color="#C00600" style={{paddingStart: 20}}/></TouchableOpacity>
            </View>
         </View>
     );
@@ -44,9 +48,10 @@ const styles = StyleSheet.create({
 
     switchContainer: {
         flex: 0.5,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingEnd: 10
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingEnd: 1
     },
 
     titleContainer: {

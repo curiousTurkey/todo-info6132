@@ -1,14 +1,26 @@
 import { StyleSheet, View, Text, Modal, Button } from "react-native";
 import TextBox from "./TextBox";
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 
 export default function AddTaskModal({isVisible, onClose, onSubmit}){
     const [title, setTitle] = useState('');
     const handleAddTask = () => {
+        if(title === ''){
+
+            Toast.show({
+                type: 'error',
+                text1: 'Empty Task',
+                text1Style: {fontSize: 18},
+                text2: 'Text Input cannot be empty!',
+                text2Style: {fontSize: 16, color : '#860000'}
+            })
+        } else {
         setTitle(title)
         onSubmit(title);
         setTitle('');
         onClose();
+        }
     }
     return(
         <Modal
@@ -32,9 +44,9 @@ export default function AddTaskModal({isVisible, onClose, onSubmit}){
 
 const styles = StyleSheet.create({
     modal: {
-        flex: .36,
+        flex: .5,
         backgroundColor: "#2D2D34",
-        marginTop: 200,
+        marginTop: 400,
         marginHorizontal: 30,
         padding: 20,
         borderRadius: 10,

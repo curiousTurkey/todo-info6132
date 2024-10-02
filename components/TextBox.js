@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 6,
         paddingLeft: 10,
-        marginVertical: 20
+        marginVertical: 20,
+        color: '#FFF',
+        
       }
 })
