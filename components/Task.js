@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, Switch, TouchableOpacity} from "react-native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-export default function({todo}){
+export default function({todo, onDelete}){
     console.log("In task", todo);
     const [isEnabled, setIsEnabled] = useState(todo.completed);
     const toggleSwitch = () => {
         setIsEnabled(isEnabled => !isEnabled);
         todo.completed = !isEnabled;
     };
+    // const handleDelete = () => {
+    //     onDelete(todo);
+    // } 
     return (
         <View style={styles.taskContainer}>
            <View style={styles.titleContainer}>
             <Text style={styles.todoTitle}>{todo.title}</Text>
             <Text style={styles.taskStatus}>
                 Status: {isEnabled ? <Text style={{color: "#005A03"}}>
-                    Completed</Text> : <Text style={{color: "#C00600"}}>Pending</Text>}</Text>
+                    Done</Text> : <Text style={{color: "#C00600"}}>Due</Text>}</Text>
             </View>
             <View style={styles.switchContainer}>
             <Switch 
@@ -24,7 +27,7 @@ export default function({todo}){
             onValueChange={toggleSwitch}
             value={isEnabled}
             ></Switch>
-            <TouchableOpacity><MaterialCommunityIcons name="delete" size={48} color="#C00600" style={{paddingStart: 20}}/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {onDelete(todo.id)}}><MaterialCommunityIcons name="delete" size={48} color="#C00600" style={{paddingStart: 20}}/></TouchableOpacity>
            </View>
         </View>
     );

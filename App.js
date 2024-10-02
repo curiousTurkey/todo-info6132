@@ -9,9 +9,6 @@ import Toast from 'react-native-toast-message';
 
 export default function App() {
   const [todos, setTodos] = useState([
-    {id: 1, title: "Wash clothes", completed: false},
-    {id: 2, title: "Wash clothes", completed: false},
-    {id: 3, title: "Wash clothes", completed: false},
   ]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const addTask = (title) => {
@@ -22,23 +19,27 @@ export default function App() {
       completed: false
     }
     setTodos([...todos, newTask]);
-    setIsModalVisible(false)
+    setIsModalVisible(false);
   }
   const onClose = () => {
     setIsModalVisible(false)
   };
-  console.log(todos)
+  const onDelete = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>  
         <AppBar />
      <View style={styles.contentContainer}>
       <FlatList 
+      showsVerticalScrollIndicator= {false}
       style={styles.flatList}
       data={todos}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({item}) => (
-        <Task todo={item} />
+        <Task todo={item} onDelete={() => {onDelete(item.id)}}/>
       )}
       >
       </FlatList>
